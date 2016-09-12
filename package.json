@@ -1,0 +1,31 @@
+{
+  "name": "brenna-photo-app-portfolio",
+  "version": "1.0.0",
+  "description": "Brenna Kat Photography - portfolio",
+  "author": "skuttleman@gmail.com",
+  "dependencies": {
+    "axios": "^0.11.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.3.0",
+    "react-router": "^2.0.0",
+    "react-router-redux": "^4.0.0",
+    "redux": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-eslint": "^5.0.4",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-1": "^6.5.0",
+    "eslint": "<2.3.0",
+    "webpack": "^1.12.13"
+  },
+  "scripts": {
+    "start": "webpack && http-server ./public",
+    "dev": "webpack -w",
+    "style": "sass --scss --watch src/scss/main.scss:public/css/main.css"
+  },
+  "license": "ISC"
+}
