@@ -3,11 +3,13 @@ const path = require('path');
 
 let plugins = [];
 // if production
-// const webpack = require('webpack');
+// const {
+//   UglifyJsPlugin, OccurrenceOrderPlugin, DedupePlugin
+// } = require('webpack').optimize;
 // plugins = [
-//   new webpack.optimize.UglifyJsPlugin(),
-//   new webpack.optimize.OccurrenceOrderPlugin(),
-//   new webpack.optimize.DedupePlugin()
+//   new UglifyJsPlugin,
+//   new OccurrenceOrderPlugin,
+//   new DedupePlugin
 // ];
 
 module.exports = {
