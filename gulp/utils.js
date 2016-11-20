@@ -16,8 +16,9 @@ const errorReporter = ({ build }) => {
 };
 
 const getArg = flag => {
-  let arg = process.argv.find(arg => arg.match(new RegExp(`^--${flag}`))) || '';
-  return arg.split('=')[1];
+  let arg = process.argv.find(arg => arg.match(new RegExp(`^--${flag}`)));
+  let string = arg || '';
+  return string.split('=')[1];
 };
 
 module.exports = {

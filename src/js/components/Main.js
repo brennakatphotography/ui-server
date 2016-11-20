@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import connectStore from '../helpers/redux-connector';
+import connectStore from '../utils/redux-connector';
 import template from '../templates/Main';
+import { getMainScrollerImages, getPublicFolders } from '../actions';
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.dispatch(getMainScrollerImages());
+    this.props.dispatch(getPublicFolders());
+  }
+
   render() {
-    let { dispatch } = this.props;
-    return template({ dispatch });
+    return template(this.props);
   }
 }
 

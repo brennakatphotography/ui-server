@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import connectStore from '../utils/redux-connector';
-import template from '../templates/App';
+import template from '../templates/TopBar';
 
-class App extends Component {
+class TopBar extends Component {
   render() {
     let { children } = this.props;
     return template({ children });
   }
 }
 
-export default connectStore(App);
+export default connectStore(TopBar);

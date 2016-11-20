@@ -1,0 +1,28 @@
+.image-scroller {
+  display: block;
+  width: 100vw;
+  .image {
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    padding: 10px;
+    background-color: $LIGHT-GREY;
+    & + .image {
+      left: 100vw;
+    }
+    &.image-scroll-leave {
+      left: 0;
+      & + .image {
+        left: 100vw;
+      }
+      &.image-scroll-leave-active {
+        left: -100vw;
+        transition: left 1s ease;
+        & + .image {
+          left: 0;
+          transition: left 1s ease;
+        }
+      }
+    }
+  }
+}

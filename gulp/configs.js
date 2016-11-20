@@ -11,7 +11,7 @@ const browserifyConfig = {
   cache: {},
   packageCache: {},
   fullPaths: true,
-  entries: './src/js/app.js',
+  entries: './src/js/app.js'
 };
 
 const browserSyncConfig = {
