@@ -11,12 +11,11 @@ const browserifyConfig = {
   cache: {},
   packageCache: {},
   fullPaths: true,
-  entries: './src/js/app.js'
+  entries: './client/src/js/app.js'
 };
 
 const browserSyncConfig = {
-  server: './public',
-  port: getArg('port') || 8080
+  server: false
 };
 
 module.exports = {

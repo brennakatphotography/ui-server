@@ -1,7 +1,9 @@
 const babelify = require('babelify');
 const browserify = require('browserify');
 const browserSync = require('browser-sync').create();
+const exec = require('child_process').exec;
 const gulp = require('gulp');
+const gulpBabel = require('gulp-babel');
 const minifyCSS = require('gulp-clean-css');
 const minifyJS = require('gulp-uglify');
 const sass = require('gulp-sass');
@@ -9,63 +11,93 @@ const source = require('vinyl-source-stream');
 const streamify = require('gulp-streamify');
 const { babelifyConfig, browserifyConfig, browserSyncConfig } = require('./configs');
 const { buildOnly, getArg, errorReporter } = require('./utils');
-const SIMULATOR_DIR = getArg('simulator');
-const simulator = require('./simulator')(SIMULATOR_DIR);
+const subProcess = require('./process');
+
+const SIM_DIR = getArg('simulator');
+const server = subProcess({ cwd: '.', port: 8080, cmd: 'node', args: ['server/build/server.js']});
+const simulator = subProcess({ cwd: SIM_DIR, port: 3000, cmd: 'rackup', args: ['-p', '3000'] });
 
 const browserInit = () => {
-  if (SIMULATOR_DIR) {
-    return [['transpile', 'simulator:watch'], browserSyncInit];
+  if (SIM_DIR) {
+    return [['transpile', 'server:watch', 'simulator:watch'], browserSyncInit];
   }
-  return [['transpile'], browserSyncInit];
+  return [['transpile', 'server:watch'], browserSyncInit];
 };
 
-const browserSyncInit = () => browserSync.init(browserSyncConfig);
+const browserSyncInit = () => {
+  exec('open http://localhost:8080');
+  browserSync.init(browserSyncConfig)
+};
 
-const jsTranspile = (config = {}) => () => {
+const jsTranspileClient = (config = {}) => () => {
   return browserify(browserifyConfig)
     .transform(babelify.configure(babelifyConfig))
     .bundle()
     .on('error', errorReporter(config))
     .pipe(source('app.js'))
     .pipe(buildOnly(config.build, streamify, minifyJS()))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('client/dist/js'));
 };
 
-const reloadServer = () => {
-  return gulp.watch('src/**/*.*', [browserSync.reload]);
+const jsTranspileServer = (config = {}) => () => {
+  return gulp.src('server/src/**/*.js')
+    .pipe(gulpBabel(babelifyConfig))
+    .pipe(buildOnly(config.build, streamify, minifyJS()))
+    .pipe(gulp.dest('server/build'))
+};
+
+const refreshBrowser = () => {
+  return gulp.watch('(client|server)/**/*.*', [browserSync.reload]);
 };
 
 const runServer = done => {
+  server.run(done).on('exit', status => {
+    if (status) {
+      console.error('Server failed to come up on port 8080');
+    }
+  }).on('error', console.error);
+};
+
+const runSimulator = done => {
   simulator.run(done).on('exit', status => {
     if (status) {
-      console.error('Simulator failed to come up on port 3000.');
+      console.error('Simulator failed to come up on port 3000');
       process.abort(status);
     }
-  });
+  }).on('error', console.error);
+};
+
+const watchServer = () => {
+  return gulp.watch('server/**/*.js', ['server:run', browserSync.reload]);
 };
 
 const watchSimulator = () => {
-  return gulp.watch(`${SIMULATOR_DIR}/**/*.*`, ['simulator:run', browserSync.reload]);
+  return gulp.watch(`${SIM_DIR}/**/*.*`, ['simulator:run', browserSync.reload]);
 };
 
 const sassTranspile = (config = {}) => () => {
-  return gulp.src('src/scss/main.scss')
+  return gulp.src('client/src/scss/main.scss')
     .pipe(sass().on('error', errorReporter(config)))
     .pipe(buildOnly(config.build, minifyCSS))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('client/dist/css'));
 };
 
 module.exports = {
-  'build': [['js:build', 'sass:build']],
+  'build': [['js:buildClient', 'js:buildServer', 'sass:build']],
   'browser:init': browserInit(),
-  'js:build': [jsTranspile({ build: true })],
-  'js:transpile': [jsTranspile()],
-  'js:watch': [() => gulp.watch('src/js/**/*.js', ['js:transpile'])],
+  'js:buildClient': [jsTranspileClient({ build: true })],
+  'js:buildServer': [jsTranspileServer({ build: true })],
+  'js:transpileClient': [jsTranspileClient()],
+  'js:transpileServer': [jsTranspileServer()],
+  'js:watchClient': [() => gulp.watch('client/src/js/**/*.js', ['js:transpileClient'])],
+  'js:watchServer': [() => gulp.watch('server/src/**/*.js', ['js:transpileServer'])],
   'sass:build': [sassTranspile({ build: true })],
   'sass:transpile': [sassTranspile()],
-  'sass:watch': [() => gulp.watch('src/scss/**/*.scss', ['sass:transpile'])],
-  'server': [['browser:init', 'js:watch', 'sass:watch'], reloadServer],
-  'simulator:run': SIMULATOR_DIR && [runServer],
-  'simulator:watch': SIMULATOR_DIR && [['simulator:run'], watchSimulator],
-  'transpile': [['js:transpile', 'sass:transpile', 'js:watch', 'sass:watch']]
+  'sass:watch': [() => gulp.watch('client/src/scss/**/*.scss', ['sass:transpile'])],
+  'server': [['browser:init', 'js:watchClient', 'js:watchServer', 'sass:watch'], refreshBrowser],
+  'server:run': [['js:transpileServer'], runServer],
+  'server:watch': [['server:run'], watchServer],
+  'simulator:run': SIM_DIR && [runSimulator],
+  'simulator:watch': SIM_DIR && [['simulator:run'], watchSimulator],
+  'transpile': [['js:transpileClient', 'js:transpileServer', 'sass:transpile', 'js:watchClient', 'js:watchServer', 'sass:watch']]
 };

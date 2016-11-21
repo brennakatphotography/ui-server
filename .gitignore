@@ -1,5 +1,7 @@
+.env
 node_modules/
-public/css/
-public/js/
+client/dist/css/
+client/dist/js/
+server/build/
 .sass-cache/
 *.log*

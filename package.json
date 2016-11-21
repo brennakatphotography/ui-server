@@ -5,7 +5,10 @@
   "author": "skuttleman@gmail.com",
   "dependencies": {
     "axios": "^0.11.0",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
     "fun-util": "^0.3.0",
+    "path": "^0.12.7",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -24,6 +27,7 @@
     "colors": "^1.1.2",
     "eslint": "<2.3.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-browserify": "^0.5.1",
     "gulp-clean-css": "^2.0.13",
     "gulp-sass": "^2.3.2",
@@ -33,8 +37,9 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
-    "start": "./node_modules/gulp/bin/gulp.js server",
-    "start:simulator": "./node_modules/gulp/bin/gulp.js server --simulator=../server-simulator"
+    "start": "node ./node_modules/gulp/bin/gulp.js build && node server/build/server.js",
+    "dev": "node ./node_modules/gulp/bin/gulp.js server",
+    "dev:simulator": "node ./node_modules/gulp/bin/gulp.js server --simulator=../server-simulator"
   },
   "license": "ISC"
 }

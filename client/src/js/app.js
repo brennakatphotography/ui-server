@@ -1,9 +1,3 @@
-import loadEnv from './utils/env';
-// DEV ONLY
-import { DEV } from './env';
-loadEnv(DEV);
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
