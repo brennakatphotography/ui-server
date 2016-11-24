@@ -1,14 +1,18 @@
 const addHeaders = require('./addHeaders');
+const ajax = {
+  'http:': require('http'),
+  'https:': require('https')
+};
 const fs = require('fs');
-const http = require('http');
 const { PHOTO_API } = process.env;
 const url = require('url');
 
-const createConfig = location => {
-  return {
+const fetch = (location, cb) => {
+  const config = {
     ...url.parse(location),
     headers: addHeaders()
   };
+  ajax[config.protocol || 'http:'].get(config, cb);
 };
 
 const streamFile = resource => {
@@ -17,7 +21,7 @@ const streamFile = resource => {
     const filename = `/tmp/${Date.now()}-${randomId}.jpg`;
     const file = fs.createWriteStream(filename);
     file.on('open', () => {
-      http.get(createConfig(`${PHOTO_API}${resource}`), stream => stream.pipe(file));
+      fetch(`${PHOTO_API}${resource}`, stream => stream.pipe(file));
     }).on('finish', () => resolve(filename)).on('error', reject);
   });
 };

@@ -38,7 +38,7 @@
   "scripts": {
     "start": "node node_modules/gulp/bin/gulp.js build && node server/build/server.js",
     "dev": "node node_modules/gulp/bin/gulp.js server",
-    "dev:simulator": "node ./node_modules/gulp/bin/gulp.js server --simulator=../server-simulator"
+    "dev:simulator": "node node_modules/gulp/bin/gulp.js server --simulator=../server-simulator"
   },
   "license": "ISC"
 }
