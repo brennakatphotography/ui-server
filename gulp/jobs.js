@@ -10,7 +10,7 @@ const sass = require('gulp-sass');
 const source = require('vinyl-source-stream');
 const streamify = require('gulp-streamify');
 const { babelifyConfig, browserifyConfig, browserSyncConfig } = require('./configs');
-const { buildOnly, getArg, errorReporter } = require('./utils');
+const { buildOnly, errorReporter, getArg, logIf } = require('./utils');
 const subProcess = require('./process');
 
 const SIM_DIR = getArg('simulator');
@@ -50,22 +50,20 @@ const refreshBrowser = () => {
   return gulp.watch('(client|server)/**/*.*', [browserSync.reload]);
 };
 
-const runServer = done => {
-  server.run(done).on('exit', status => {
-    if (status) {
-      console.error('Server failed to come up on port 8080');
-    }
-  }).on('error', console.error);
+const run = ({ cb, name, port, proc }) => done => {
+  proc.run(done)
+    .on('exit', status => {
+      if (status) {
+        console.error(`${name} failed to come up on port ${port}`);
+        if (cb) cb(status);
+      }
+    }).on('stdout', message => logIf(name, message))
+    .on('error', console.error);
 };
 
-const runSimulator = done => {
-  simulator.run(done).on('exit', status => {
-    if (status) {
-      console.error('Simulator failed to come up on port 3000');
-      process.abort(status);
-    }
-  }).on('error', console.error);
-};
+const runServer = run({ name: 'SERVER', port: 8080, proc: server });
+
+const runSimulator = run({ name: 'SIMULATOR', port: 3000, proc: simulator, cb: process.abort });
 
 const watchServer = () => {
   return gulp.watch('server/**/*.js', ['server:run', browserSync.reload]);

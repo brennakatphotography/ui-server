@@ -21,8 +21,16 @@ const getArg = flag => {
   return string.split('=')[1];
 };
 
+const logIf = (executor, ...messages) => {
+  const logs = messages.map(message => message.trim()).filter(Boolean);
+  if (logs.length) {
+    console.log(`[ ${executor} ]:`, ...logs);
+  }
+};
+
 module.exports = {
   buildOnly,
   errorReporter,
-  getArg
+  getArg,
+  logIf
 };

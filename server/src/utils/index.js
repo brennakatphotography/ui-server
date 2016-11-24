@@ -1,5 +1,5 @@
 module.exports = {
-  ajax: require('./ajax'),
+  addHeaders: require('./addHeaders'),
   file: require('./file'),
   url: require('./url')
 };

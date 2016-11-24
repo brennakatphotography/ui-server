@@ -1,10 +1,10 @@
 const path = require('path');
 const route = require('express').Router();
-const { NODE_ENV } = process.env;
+const { GULP } = process.env;
 
 route.get('/', (request, response, next) => {
-  const devHTML = path.join(__dirname, '../../../client/dist/dev.html');
-  if (NODE_ENV !== 'production') {
+  const devHTML = path.join(__dirname, '../../../../client/dist/dev.html');
+  if (GULP) {
     response.sendFile(devHTML);
   } else {
     next();
