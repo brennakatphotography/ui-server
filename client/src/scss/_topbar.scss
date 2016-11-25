@@ -3,8 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
+  height: $TOOLBAR-HEIGHT;
+  overflow-y: visible;
   h1 {
-    font-size: 3.75rem;
+    align-self: flex-start;
+    font-size: 4.5rem;
+    z-index: 100;
   }
   .logo {
     font-size: 3rem;
