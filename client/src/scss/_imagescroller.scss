@@ -7,6 +7,12 @@
     text-align: center;
     padding: 10px;
     background-color: $LIGHT-GREY;
+    img {
+      max-height: 75vh;
+      max-width: 90vw;
+      height: auto;
+      width: auto;
+    }
     & + .image {
       left: 100vw;
     }

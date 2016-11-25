@@ -3,7 +3,7 @@ import Image from '../components/Image';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default images => (
-  <div style={{ height: '500px' }}>
+  <div>
     <ReactCSSTransitionGroup
       className="image-scroller"
       transitionName="image-scroll"

@@ -47,7 +47,7 @@ const jsTranspileServer = (config = {}) => () => {
 };
 
 const refreshBrowser = () => {
-  return gulp.watch('(client|server)/**/*.*', [browserSync.reload]);
+  return gulp.watch(['client/src/**/*.*', 'server/src/**/*.*'], [browserSync.reload]);
 };
 
 const run = ({ cb, name, port, proc }) => done => {
