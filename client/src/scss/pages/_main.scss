@@ -1,5 +1,42 @@
-.main-container {
+.after-image-scroller {
+  padding: 8px 0;
+  width: 100vw;
+  position: absolute;
+  top: calc(100vh - 32px);
+}
+
+.photo-groups {
   display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+  .image-collection {
+    padding: 8px;
+    height: 120px;
+    width: 120px;
+    * {
+      text-decoration: none;
+    }
+    .image-link {
+      align-items: center;
+      background-size: contain;
+      display: flex;
+      height: 120px;
+      justify-content: center;
+      transition: all 0.2s ease;
+      width: 120px;
+      .image-text {
+        color: white;
+        text-shadow: black 1px 1px;
+      }
+      &:hover {
+        font-size: 1.25rem;
+        font-weight: bold;
+        .image-text {
+          color: $LIGHT-BLUE;
+          text-shadow: black 1px 1px;
+        }
+      }
+    }
+  }
 }

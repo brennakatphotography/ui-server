@@ -1,2 +1,2 @@
-export { getMainScrollerImages } from './images';
-export { getPublicFolders } from './folders';
+export { getMainScrollerImages, getThumbnails } from './images';
+export { getPublicFolders, getGroupFolders } from './folders';

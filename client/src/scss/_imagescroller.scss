@@ -7,7 +7,7 @@
     text-align: center;
     padding: 8px;
     background-color: $LIGHT-GREY;
-    height: calc(100vh - #{$TOOLBAR-HEIGHT} - #{$PADDING-OFFSET} - #{$PADDING-OFFSET});
+    height: $IMAGE_SCROLLER-HEIGHT;
     img {
       max-height: 100%;
       max-width: 100%;

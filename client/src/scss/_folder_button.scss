@@ -1,39 +1,6 @@
 .public-folders {
   display: flex;
-  .button-with-tool-tip {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 0 16px;
-    width: 100%;
-    .folder-button {
-      background-color: $LIGHT-BLUE;
-      cursor: pointer;
-      padding: 8px 16px;
-      & + span {
-        background-color: none;
-        border: 1px solid $WHITE;
-        border-radius: 5px;
-        display: block;
-        max-width: 480px;
-        position: absolute;
-        margin: 32px 16px 0 16px;
-        opacity: 0;
-        padding: 8px;
-        transition: all 0.2s ease-out;
-        z-index: 10;
-      }
-      &:hover + span, &:active + span {
-        background-color: $WHITE;
-        border: 1px solid $MED-GREY;
-        opacity: 1;
-        transition: all 1 ease-in;
-      }
-      &:hover {
-        box-shadow: 1px 1px 5px $GREY;
-        transition: box-shadow 0.2s ease;
-      }
-    }
+  .image-collection {
+    flex-grow: 1;
   }
 }

@@ -16,7 +16,7 @@
     "dotenv": "^2.0.0",
     "eslint": "<2.3.0",
     "express": "^4.14.0",
-    "fun-util": "^0.3.0",
+    "fun-util": "^0.4.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-browserify": "^0.5.1",

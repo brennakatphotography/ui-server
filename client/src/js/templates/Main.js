@@ -3,10 +3,12 @@ import TopBar from '../components/TopBar';
 import ImageScroller from '../components/ImageScroller';
 import PublicFolders from '../components/PublicFolders';
 
-export default vars => (
+export default ({ bannerImages, groups }) => (
   <div className="main-container">
-    <ImageScroller images={vars.bannerImages} />
-    {/*}<PublicFolders folders={vars.folders} />*/}
+    <ImageScroller images={bannerImages} />
+    <div className="after-image-scroller">
+      <PublicFolders groups={groups} />
+    </div>
     {/*<div>Whatever is beneath</div>*/}
   </div>
 );

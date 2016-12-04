@@ -2,7 +2,7 @@ const { getArg } = require('./utils');
 
 const babelifyConfig = {
   presets: ['es2015', 'react', 'stage-1'],
-  ignore: 'node_modules'
+  ignore: 'node_modules/*[^fun-util]'
 };
 
 const browserifyConfig = {

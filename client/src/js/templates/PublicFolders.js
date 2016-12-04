@@ -1,8 +1,8 @@
 import React from 'react';
-import FolderButton from '../components/FolderButton';
+import ImageCollectionLink from '../components/ImageCollectionLink';
 
-export default vars => (
-  <div className="public-folders">
-    {vars.folders.map((folder, key) => <FolderButton key={key} {...folder} />)}
+export default ({ groups }) => (
+  <div className="photo-groups">
+    {groups.map((group, key) => <ImageCollectionLink key={key} {...group} />)}
   </div>
 );

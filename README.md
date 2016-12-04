@@ -14,4 +14,5 @@ $ npm start # Builds and runs front-end on port 8080 with no simulator.
 $ npm run dev # Runs the server in dev mode with live reloading on code changes and browser refreshing.
 $ npm run dev:simulator # Runs the app in dev mode with a simulator.
 # Expects simulator to be in relative directory ../server-simulator.
+$ npm run dev -- --simulator=/path/to/simulator
 ```

@@ -1,5 +1,4 @@
 export default ({ dispatch }) => next => action => {
-  console.log('dispatched action:');
-  console.log(action);
+  console.log('dispatched action:', action);
   return next(action);
 };
