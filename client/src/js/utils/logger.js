@@ -1,4 +1,15 @@
-export default ({ dispatch }) => next => action => {
-  console.log('dispatched action:', action);
-  return next(action);
+import { partial } from 'fun-util';
+
+const logger = (level, ...messages) => {
+  if (window.ENV !== 'production') {
+    console[level](...messages);
+  }
+};
+
+export default {
+  debug: partial(logger, 'debug'),
+  error: partial(logger, 'error'),
+  info: partial(logger, 'info'),
+  log: partial(logger, 'log'),
+  warn: partial(logger, 'warn')
 };

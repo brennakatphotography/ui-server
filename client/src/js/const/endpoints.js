@@ -15,3 +15,5 @@ export const photoSrc = (id, type) => {
   }
   return endpoint;
 };
+
+export const groupRoute = id => `/groups/${id}`;

@@ -1,13 +1,15 @@
 import axios from 'axios';
-import { resolveThrough, rejectThrough } from 'fun-util';
+import { partial, resolveThrough, rejectThrough } from 'fun-util';
+
+import logger from './logger';
 
 axios.interceptors.request.use(config => {
-  console.log(config);
+  logger.log(config);
   return config;
 });
 
-axios.interceptors.response.use(resolveThrough(console.log), rejectThrough(console.error));
+axios.interceptors.response.use(
+  resolveThrough(logger.log),
+  rejectThrough(logger.error));
 
 export default axios;
-
-export const groupRoute = id => `/groups/${id}`;

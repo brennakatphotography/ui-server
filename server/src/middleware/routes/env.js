@@ -1,13 +1,16 @@
 const path = require('path');
 const route = require('express').Router();
+
+const [DEV_HTML, INDEX_HTML] = ['dev', 'index'].map(file => {
+  return path.join(__dirname, `../../../../client/dist/${file}.html`);
+});
 const { GULP } = process.env;
 
-route.get('/', (request, response, next) => {
-  const devHTML = path.join(__dirname, '../../../../client/dist/dev.html');
+route.get('/*', (request, response, next) => {
   if (GULP) {
-    response.sendFile(devHTML);
+    response.sendFile(DEV_HTML);
   } else {
-    next();
+    response.sendFile(INDEX_HTML);
   }
 });
 

@@ -1,0 +1,1 @@
+export { getGroupImages } from './images';

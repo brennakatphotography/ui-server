@@ -20,6 +20,8 @@
     .image-link {
       align-items: center;
       background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       display: flex;
       height: 120px;
       justify-content: center;
