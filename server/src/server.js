@@ -6,11 +6,10 @@ require('./utils/dotenv');
 app.use(require('./middleware/interceptors'));
 
 app.use('/api', require('./api'));
-
 app.use('/auth', require('./auth'));
-
 app.use('/bin', require('./bin'));
 
+app.set('view engine', 'jade');
 app.use('/', require('./middleware/routes'));
 
 app.listen(PORT, () => {

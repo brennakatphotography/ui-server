@@ -1,17 +1,16 @@
 const path = require('path');
 const route = require('express').Router();
-
-const [DEV_HTML, INDEX_HTML] = ['dev', 'index'].map(file => {
-  return path.join(__dirname, `../../../../client/dist/${file}.html`);
-});
-const { GULP } = process.env;
+const ENV = require('../../config/env');
+const DEV_ENV = { ...ENV, ...require('../../config/dev.env') };
+const PROD_ENV = { ...ENV, ...require('../../config/prod.env') };
 
 route.get('/*', (request, response, next) => {
-  if (GULP) {
-    response.sendFile(DEV_HTML);
-  } else {
-    response.sendFile(INDEX_HTML);
+  const INDEX_JADE = path.join(__dirname, '../../../../client/dist/index.jade');
+  let env = PROD_ENV;
+  if (process.env.GULP) {
+    env = DEV_ENV;
   }
+  response.render(INDEX_JADE, { env, json: JSON.stringify(env) });
 });
 
 module.exports = route;

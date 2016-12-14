@@ -10,8 +10,8 @@ route.get('/login', ({ headers: { host } }, response, next) => {
   response.redirect(`${PHOTO_API}/auth/login${query}`)
 });
 
-route.get('/callback', ({ query }, response, next) => {
-  response.cookie('token', query.token, { httpOnly: true });
+route.get('/callback', ({ query: { token } }, response, next) => {
+  response.cookie('token', token, { httpOnly: true });
   response.redirect('/');
 });
 
