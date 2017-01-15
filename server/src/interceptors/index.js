@@ -1,5 +1,6 @@
 const interceptors = [
   require('cookie-parser')(),
+  require('body-parser').json(),
   require('./ajax')
 ];
 
@@ -11,12 +12,10 @@ const cbNext = (request, response, next, interceptors) => (...args) => {
 };
 
 const incept = interceptors => (request, response, next) => {
-  switch (interceptors.length) {
-    case 0:
-      return next();
-    default:
-      interceptors[0](request, response, cbNext(request, response, next, interceptors));
+  if (interceptors.length) {
+    return interceptors[0](request, response, cbNext(request, response, next, interceptors));
   }
+  next();
 };
 
 module.exports = (request, response, next) => {

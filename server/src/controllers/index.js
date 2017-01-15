@@ -2,8 +2,6 @@ const route = require('express').Router();
 
 route.use('/', require('./static'));
 
-route.use('/', require('./env'));
-
-route.use('/', require('./err'));
+route.use('/', require('./html'));
 
 module.exports = route;

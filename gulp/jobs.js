@@ -42,7 +42,6 @@ const jsTranspileClient = (config = {}) => () => {
 const jsTranspileServer = (config = {}) => () => {
   return gulp.src('server/src/**/*.js')
     .pipe(gulpBabel(babelifyConfig))
-    .pipe(buildOnly(config.build, streamify, minifyJS()))
     .pipe(gulp.dest('server/build'))
 };
 
