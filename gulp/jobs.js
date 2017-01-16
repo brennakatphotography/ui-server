@@ -36,12 +36,13 @@ const jsTranspileClient = (config = {}) => () => {
     .on('error', errorReporter(config))
     .pipe(source('app.js'))
     .pipe(buildOnly(config.build, streamify, minifyJS()))
-    .pipe(gulp.dest('client/dist/js'));
+    .pipe(gulp.dest('client/build/js'));
 };
 
 const jsTranspileServer = (config = {}) => () => {
   return gulp.src('server/src/**/*.js')
-    .pipe(gulpBabel(babelifyConfig))
+    .pipe(gulpBabel(babelifyConfig)
+      .on('error', errorReporter(config)))
     .pipe(gulp.dest('server/build'))
 };
 
@@ -76,7 +77,7 @@ const sassTranspile = (config = {}) => () => {
   return gulp.src('client/src/scss/main.scss')
     .pipe(sass().on('error', errorReporter(config)))
     .pipe(buildOnly(config.build, minifyCSS))
-    .pipe(gulp.dest('client/dist/css'));
+    .pipe(gulp.dest('client/build/css'));
 };
 
 module.exports = {

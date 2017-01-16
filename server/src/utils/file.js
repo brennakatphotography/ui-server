@@ -1,4 +1,4 @@
-const addHeaders = require('./addHeaders');
+const makeHeaders = require('./makeHeaders');
 const ajax = {
   'http:': require('http'),
   'https:': require('https')
@@ -10,7 +10,7 @@ const url = require('url');
 const fetch = (location, cb) => {
   const config = {
     ...url.parse(location),
-    headers: addHeaders()
+    ...makeHeaders()
   };
   ajax[config.protocol || 'http:'].get(config, cb);
 };

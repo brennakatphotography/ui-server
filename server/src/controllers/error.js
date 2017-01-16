@@ -1,6 +1,6 @@
-module.exports = (err, request, response, next) => {
-  console.error('an error ocurred:', err);
+module.exports = (error, request, response, next) => {
+  console.error('an error ocurred:', error);
   response
-    .status(err.status || 500)
-    .json({ error: err.message || err });
+    .status(error.status || 500)
+    .json({ error: error.error || error.message || error });
 };

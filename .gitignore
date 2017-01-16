@@ -1,8 +1,8 @@
 .DS_Store
 .env
 node_modules/
-client/dist/css/
-client/dist/js/
+client/build/css/
+client/build/js/
 server/build/
 .sass-cache/
 *.log*

@@ -1,5 +1,5 @@
 module.exports = {
-  addHeaders: require('./addHeaders'),
   file: require('./file'),
+  makeHeaders: require('./makeHeaders'),
   url: require('./url')
 };
