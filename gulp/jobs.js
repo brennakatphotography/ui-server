@@ -14,7 +14,7 @@ const { buildOnly, errorReporter, getArg, logIf } = require('./utils');
 const subProcess = require('./process');
 
 const SIM_DIR = getArg('simulator');
-const server = subProcess({ cwd: '.', port: 8080, cmd: 'node', args: ['server/build/server.js']});
+const server = subProcess({ cwd: '.', port: 8080, cmd: 'node', args: ['server/build/server.js'] });
 const simulator = subProcess({ cwd: SIM_DIR, port: 3000, cmd: 'rackup', args: ['-p', '3000'] });
 
 const browserInit = () => {

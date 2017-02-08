@@ -5,4 +5,5 @@ client/build/css/
 client/build/js/
 server/build/
 .sass-cache/
+.idea/
 *.log*
