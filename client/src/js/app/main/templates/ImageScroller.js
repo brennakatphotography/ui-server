@@ -9,8 +9,9 @@ export default ({ images }) => (
       className="image-scroller"
       transitionName="image-scroll"
       transitionEnterTimeout={1000}
-      transitionLeaveTimeout={1000}>
-        {images.map(image => <Image key={image.id} image={image} />)}
+      transitionLeaveTimeout={1000}
+    >
+      {images.map(image => <Image key={image.id} image={image}/>)}
     </ReactCSSTransitionGroup>
   </div>
 );

@@ -1,10 +1,11 @@
 const route = require('express').Router();
 const { buildQueryString } = require('../utils/url');
 const { PHOTO_API } = process.env;
-const redirect_path = '/auth/callback';
+const REDIRECT_PATH = '/auth/callback';
 
-route.get('/login', ({ headers: { host: redirect_host } }, response, next) => {
-  let query = buildQueryString({ redirect_host, redirect_path });
+route.get('/login', ({ headers: { host }, protocol }, response, next) => {
+  let redirect_uri = `${protocol}://${host}${REDIRECT_PATH}`;
+  let query = buildQueryString({ redirect_uri });
   response.redirect(`${PHOTO_API}/auth/login${query}`);
 });
 

@@ -1,13 +1,14 @@
 import logger from './logger';
 
 const dispatchMiddleware = ({ dispatch }) => next => action => {
-  if (typeof action === 'function') return action(dispatch);
-  return next(action);
+  return typeof action === 'function' ? action(dispatch) : next(action);
 };
 
-const loggerMiddleware = ({ dispatch }) => next => action => {
-  logger.log('dispatched action:', action);
-  return next(action);
+const loggerMiddleware = ({ getState }) => next => action => {
+  logger.log('Dispatched action:', action);
+  let nextAction = next(action);
+  logger.log('State after dispatching:', getState());
+  return nextAction;
 };
 
 export default [

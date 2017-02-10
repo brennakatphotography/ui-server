@@ -1,6 +1,15 @@
 module.exports = (error, request, response, next) => {
-  console.error('an error ocurred:', error);
+  let errorData = joinIfArrayLike(error);
+  console.error('an error ocurred:', errorData);
   response
-    .status(error.status || 500)
-    .json({ error: error.error || error.message || error });
+    .status(errorData.status || 500)
+    .json({ error: errorData.error || errorData.message || errorData });
+};
+
+const joinIfArrayLike = object => {
+  try {
+    return Array.prototype.join.call(object, '') || object;
+  } catch (error) {
+    return object;
+  }
 };

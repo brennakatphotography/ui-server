@@ -10,8 +10,8 @@ export default ({ store, history }) => (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Main} />
-        <Route path="/groups/:id" component={PhotoGroup} />
+        <IndexRoute component={Main}/>
+        <Route path="/groups/:id" component={PhotoGroup}/>
       </Route>
     </Router>
   </Provider>

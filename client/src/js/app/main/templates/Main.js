@@ -1,6 +1,5 @@
 import React from 'react';
 
-import TopBar from '../components/TopBar';
 import ImageScroller from '../components/ImageScroller';
 import PublicFolders from '../components/PublicFolders';
 

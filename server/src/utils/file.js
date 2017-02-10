@@ -7,21 +7,21 @@ const fs = require('fs');
 const { PHOTO_API } = process.env;
 const url = require('url');
 
-const fetch = (location, cb) => {
+const fetch = (location, cb, Authorization) => {
   const config = {
     ...url.parse(location),
-    ...makeHeaders()
+    ...makeHeaders({ Authorization })
   };
   ajax[config.protocol || 'http:'].get(config, cb);
 };
 
-const streamFile = resource => {
+const streamFile = (resource, token) => {
   return new Promise((resolve, reject) => {
     const randomId = Math.floor(Math.random() * 5000);
     const filename = `/tmp/${Date.now()}-${randomId}.jpg`;
     const file = fs.createWriteStream(filename);
     file.on('open', () => {
-      fetch(`${PHOTO_API}${resource}`, stream => stream.pipe(file));
+      fetch(`${PHOTO_API}${resource}`, stream => stream.pipe(file), token);
     }).on('finish', () => resolve(filename)).on('error', reject);
   });
 };
@@ -38,4 +38,4 @@ const sendFile = response => file => {
 module.exports = {
   sendFile,
   streamFile
-};
+}
