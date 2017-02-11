@@ -17,12 +17,12 @@ const fetch = (location, cb, Authorization) => {
 
 const streamFile = (resource, token) => {
   return new Promise((resolve, reject) => {
-    const randomId = Math.floor(Math.random() * 5000);
-    const filename = `/tmp/${Date.now()}-${randomId}.jpg`;
+    const filename = `/tmp/${Date.now()}-${Math.floor(Math.random() * 5000)}.jpg`;
     const file = fs.createWriteStream(filename);
     file.on('open', () => {
-      fetch(`${PHOTO_API}${resource}`, stream => stream.pipe(file), token);
-    }).on('finish', () => resolve(filename)).on('error', reject);
+        fetch(`${PHOTO_API}${resource}`, stream => stream.pipe(file), token);
+      }).on('finish', () => resolve(filename))
+      .on('error', reject);
   });
 };
 
@@ -38,4 +38,4 @@ const sendFile = response => file => {
 module.exports = {
   sendFile,
   streamFile
-}
+};

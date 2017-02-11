@@ -1,15 +1,15 @@
+import { silent } from 'fun-util';
+
 module.exports = (error, request, response, next) => {
-  let errorData = joinIfArrayLike(error);
-  console.error('an error ocurred:', errorData);
+  console.error('an error ocurred:', joinIfArrayLike(error));
   response
-    .status(errorData.status || 500)
-    .json({ error: errorData.error || errorData.message || errorData });
+    .status(error.status || 500)
+    .json({
+      message: error.message || 'An unknown error ocurred',
+      success: false
+    });
 };
 
-const joinIfArrayLike = object => {
-  try {
-    return Array.prototype.join.call(object, '') || object;
-  } catch (error) {
-    return object;
-  }
-};
+const joinIfArrayLike = silent(object => {
+  return Array.prototype.join.call(object, '') || object;
+});

@@ -1,7 +1,8 @@
-const interceptors = [
+const INTERCEPTORS = [
   require('cookie-parser')(),
   require('body-parser').json(),
-  require('./ajax')
+  require('./ajax'),
+  require('./logger')
 ];
 
 const cbNext = (request, response, next, interceptors) => (...args) => {
@@ -19,5 +20,5 @@ const incept = interceptors => (request, response, next) => {
 };
 
 module.exports = (request, response, next) => {
-  incept(interceptors)(request, response, next);
+  incept(INTERCEPTORS)(request, response, next);
 };

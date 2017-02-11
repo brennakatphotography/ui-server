@@ -17,7 +17,7 @@
     "dotenv": "^2.0.0",
     "eslint": "<2.3.0",
     "express": "^4.14.0",
-    "fun-util": "^0.9.0",
+    "fun-util": "^0.12.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-browserify": "^0.5.1",
@@ -40,7 +40,7 @@
   "scripts": {
     "start": "node node_modules/gulp/bin/gulp.js build && node server/build/server.js",
     "dev": "node node_modules/gulp/bin/gulp.js server",
-    "dev:simulator": "node node_modules/gulp/bin/gulp.js server --simulator=../server-simulator"
+    "dev:simulator": "node node_modules/gulp/bin/gulp.js server --simulator=../simulator"
   },
   "license": "ISC"
 }

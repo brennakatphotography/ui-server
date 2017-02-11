@@ -6,10 +6,7 @@ const PROD_ENV = { ...ENV, ...require('../config/prod.env') };
 
 route.get('/*', (request, response, next) => {
   const INDEX_JADE = path.join(__dirname, '../../../client/build/index.jade');
-  let env = PROD_ENV;
-  if (process.env.GULP) {
-    env = DEV_ENV;
-  }
+  const env = process.env.GULP ? DEV_ENV : PROD_ENV;
   response.render(INDEX_JADE, { env, json: JSON.stringify(env) });
 });
 

@@ -1,10 +1,7 @@
 const { map, filter, identity } = require('fun-util');
 
 const Authorization = (token = process.env.API_TOKEN) => {
-  let header = `Bearer ${token || ''}`;
-  if (header.length > 7) {
-    return header;
-  }
+  return token ? `Bearer ${token}` : undefined;
 };
 
 const headerMappers = { Authorization };
