@@ -6,6 +6,9 @@ const buildQueryString = (query = {}) => {
   }, '?');
 };
 
+const uri = ({ method, url }) => `${method.toUpperCase()}: ${url}`;
+
 module.exports = {
-  buildQueryString: thread(buildQueryString, truncate)
+  buildQueryString: thread(buildQueryString, truncate),
+  uri
 };

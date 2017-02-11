@@ -7,12 +7,12 @@ const fs = require('fs');
 const { PHOTO_API } = process.env;
 const url = require('url');
 
-const fetch = (location, cb, Authorization) => {
+const fetch = (location, Authorization, cb) => {
   const config = {
     ...url.parse(location),
     ...makeHeaders({ Authorization })
   };
-  ajax[config.protocol || 'http:'].get(config, cb);
+  return ajax[config.protocol || 'http:'].get(config, cb);
 };
 
 const streamFile = (resource, token) => {
@@ -20,7 +20,7 @@ const streamFile = (resource, token) => {
     const filename = `/tmp/${Date.now()}-${Math.floor(Math.random() * 5000)}.jpg`;
     const file = fs.createWriteStream(filename);
     file.on('open', () => {
-        fetch(`${PHOTO_API}${resource}`, stream => stream.pipe(file), token);
+        return fetch(`${PHOTO_API}${resource}`, token, stream => stream.pipe(file));
       }).on('finish', () => resolve(filename))
       .on('error', reject);
   });

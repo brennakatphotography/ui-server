@@ -1,5 +1,9 @@
-try {
-  require('dotenv').load();
-} catch (err) {
-  console.warn('Failed to load ".env"');
+const { forEach } = require('fun-util');
+
+const { parsed } = require('dotenv').load();
+
+if (parsed) {
+  forEach(parsed, (value, key) => {
+    console.info(`Loaded environment variable ${key} as "${value}"`);
+  });
 }

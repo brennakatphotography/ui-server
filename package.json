@@ -14,7 +14,7 @@
     "browser-sync": "^2.17.5",
     "colors": "^1.1.2",
     "cookie-parser": "^1.4.3",
-    "dotenv": "^2.0.0",
+    "dotenv": "^4.0.0",
     "eslint": "<2.3.0",
     "express": "^4.14.0",
     "fun-util": "^0.12.0",

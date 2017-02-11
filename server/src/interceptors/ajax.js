@@ -1,11 +1,16 @@
 const makeHeaders = require('../utils/makeHeaders');
-const { map, through } = require('fun-util');
+const { map, through, type } = require('fun-util');
 const axios = require('axios');
 
 const ajaxDo = (instance, method, ...args) => {
   return instance[method](...args)
     .then(({ data }) => data)
-    .catch(({ data, status }) => Promise.reject({ ...data, status }));
+    .catch(({ data, status }) => {
+      if (type(data) === 'string') {
+        return Promise.reject({ message: data.trim(), status });
+      }
+      return Promise.reject({ ...data, status });
+    });
 };
 
 const mapMethods = instance => {

@@ -1,6 +1,5 @@
 const { resolveThrough, rejectThrough, through, silent } = require('fun-util');
-
-const uri = ({ method, url }) => `${method.toUpperCase()}: ${url}`;
+const { uri } = require('../utils/url');
 
 const logClientRequest = logger => ({ method, url }) => {
   logger('client requested -', uri({ method, url }));
