@@ -1,5 +1,6 @@
 const babelify = require('babelify');
 const browserSync = require('browser-sync').create();
+const del = require('del');
 const exec = require('child_process').exec;
 const gulp = require('gulp');
 const gulpBabel = require('gulp-babel');
@@ -63,8 +64,9 @@ const watchSimulator = () => {
 };
 
 module.exports = {
-  'build': [['js:buildServer']],
   'browser:init': browserInit(),
+  'build': [['clean'], () => gulp.start(['js:buildServer'])],
+  'clean': [() => del('server/build')],
   'js:buildServer': [jsTranspileServer({ build: true })],
   'js:transpileServer': [jsTranspileServer()],
   'js:watchServer': [() => gulp.watch('server/src/**/*.js', ['js:transpileServer'])],
