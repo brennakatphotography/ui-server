@@ -3,11 +3,6 @@ const babelifyConfig = {
   ignore: 'node_modules'
 };
 
-const browserSyncConfig = {
-  server: false
-};
-
 module.exports = {
-  babelifyConfig,
-  browserSyncConfig
+  babelifyConfig
 };

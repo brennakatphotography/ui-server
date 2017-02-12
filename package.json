@@ -11,16 +11,13 @@
     "dotenv": "^4.0.0",
     "eslint": "<2.3.0",
     "express": "^4.14.0",
-    "gulp": "^3.9.1",
-    "jade": "^1.11.0",
-    "path": "^0.12.7"
+    "gulp": "^3.9.1"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.4",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-1": "^6.5.0",
     "babelify": "^7.3.0",
-    "browser-sync": "^2.17.5",
     "fun-util": "^0.12.1",
     "gulp-babel": "^6.1.2",
     "gulp-streamify": "^1.0.2",

@@ -1,10 +1,6 @@
-const express = require('express'), route = express.Router();
-const path = require('path');
-const { CLIENT_FOLDER } = process.env;
+var express = require('express'), route = express.Router();
+var { STATIC_FOLDER } = process.env;
 
-['/js', '/css'].forEach(dir => {
-  let filePath = path.join(__dirname, '../../../', CLIENT_FOLDER, `.${dir}`);
-  route.use(dir, express.static(filePath));
-});
+route.use(express.static(STATIC_FOLDER));
 
 module.exports = route;

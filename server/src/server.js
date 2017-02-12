@@ -8,7 +8,6 @@ app.use('/api', require('./api'));
 app.use('/auth', require('./auth'));
 app.use('/bin', require('./bin'));
 
-app.set('view engine', 'jade');
 app.use('/', require('./controllers'));
 app.use('/', require('./controllers/error'));
 
