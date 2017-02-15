@@ -1,5 +1,3 @@
-import { silent } from 'fun-util';
-
 module.exports = (error, request, response, next) => {
   console.error('an error ocurred:', error);
   response

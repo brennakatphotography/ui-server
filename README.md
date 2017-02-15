@@ -5,16 +5,60 @@ UI applications and negotiate calls to the API.
 
 ## Running the App
 
-The application can run in development mode with live browser refreshing. If you specify the location
-of the [sinatra simulator](https://github.com/brennakatphotography/api-simulator), you can run/live
-reload the simulator as part of the gulp process. The app requires the api to be running. Configure
-the api's location in `.env`. Run `$ cp .example.env .env` to get you started.
+```bash
+$ npm start
+```
+
+## Configuring the App
+
+Set the following environment variables to configure the app.
+*Note: Environment variables can be set from the command line or inside a .env in the folder from where you run the server.*
+
+### `PHOTO_API`
+
+This should be the uri for the photo api or simulator.
 
 ```bash
-$ npm start # Builds and runs front-end on port 8080 with no simulator.
-# Set an environment variable to point to the api. See ".example.env".
-$ npm run dev # Runs the server in dev mode with live reloading on code changes and browser refreshing.
-$ npm run dev:simulator # Runs the app in dev mode with a simulator.
-# Expects simulator to be in relative directory ../simulator.
-$ npm run dev -- --simulator=/path/to/simulator
+$ export PHOTO_API=http://localhost:1234
+```
+
+### `STATIC_FOLDER`
+
+This should point to the folder that contains all the static assets including `index.html`.
+The value needs to be relative to the folder from where the server is started.
+
+```bash
+$ export STATIC_FOLDER=./build
+```
+
+### `PORT`
+
+This will tell the server which port to boot on. It defaults to `8080`.
+
+```bash
+$ export PORT=4321
+```
+
+### `CLIENT--`
+
+Any variable prefixed with `CLIENT--` will be passed to a special js file server at `/env.js` and made available throught a global `getEnv` function.
+Valid JSON will be automatically parsed.
+
+```bash
+$ export CLIENT--ENV=local
+$ export CLIENT--FAVORITE_COLOR=blue
+$ export CLIENT--SOME_DATA='{"some":["valid","JSON"]}'
+```
+
+In your html file:
+
+```html
+<script type="text/javascript" src="/env.js"></script>
+```
+
+From the browser's dev tools:
+
+```js
+getEnv();
+// => {ENV: 'local', FAVORITE_COLOR: 'blue', SOME_DATA: {some: ['valid', 'JSON']} }
 ```
