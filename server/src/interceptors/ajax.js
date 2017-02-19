@@ -2,6 +2,8 @@ const makeHeaders = require('../utils/makeHeaders');
 const { map, through, type } = require('fun-util');
 const axios = require('axios');
 
+const methods = { delete: '', get: '', patch: '', post: '', put: '', options: '' };
+
 const ajaxDo = (instance, method, ...args) => {
   return instance[method](...args)
     .then(({ data }) => data)
@@ -14,7 +16,7 @@ const ajaxDo = (instance, method, ...args) => {
 };
 
 const mapMethods = instance => {
-  return map({ delete: '', get: '', post: '', put: '' }, (_, method) => {
+  return map(methods, (_, method) => {
     return (...args) => ajaxDo(instance, method, ...args);
   });
 };
