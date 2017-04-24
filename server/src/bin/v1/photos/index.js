@@ -4,11 +4,10 @@ const { buildQueryString } = require('../../../utils/url');
 const { PHOTO_API } = process.env;
 const makeHeaders = require('../../../utils/makeHeaders');
 
-route.get('/:id', ({ cookies, params, query, schema }, response, next) => {
+route.get('/:id', ({ cookies, params, query }, response, next) => {
   const { token: Authorization } = cookies;
   const url = `${PHOTO_API}/bin/v1/photos/${params.id}${buildQueryString(query)}`;
-  request(url, makeHeaders({ Authorization }))
-    .pipe(response);
+  request(url, makeHeaders({ Authorization })).pipe(response);
 });
 
 module.exports = route;

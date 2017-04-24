@@ -1,6 +1,6 @@
-const express = require('express'), app = express();
-const PORT = process.env.PORT || 8080;
+const app = require('express-outbound')(require('express'));
 require('./utils/dotenv');
+const { PORT = 8080 } = process.env;
 
 app.use(require('./interceptors'));
 

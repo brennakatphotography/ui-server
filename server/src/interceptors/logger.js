@@ -1,36 +1,45 @@
+const logger = require('../utils/logger');
 const { resolveThrough, rejectThrough, through, silent } = require('fun-util');
 const { uri } = require('../utils/url');
 
-const logClientRequest = logger => ({ method, url }) => {
-  logger('client requested -', uri({ method, url }));
+const logIncomingRequest = ({ method, url, body }) => {
+  logger.info(`received client request - ${uri({ method, url })}`);
+  logger.debug(`with body: ${JSON.stringify(body)}`);
 };
 
-const logRequest = logger => ({ headers, data, method, url }) => {
+const logIncomingResponse = ({ method, url }, { statusCode }, data) => {
+  logger.info(`responding to client - ${statusCode} ${uri({ method, url })}`);
+  logger.debug(`with body: ${JSON.stringify(data)}`);
+};
+
+const logRequest = ({ headers, data, method, url }) => {
   const body = silent(JSON.parse)(data);
-  const message = JSON.stringify({ headers, body });
-  logger('sending request -', uri({ method, url }), message);
+  logger.info(`sending request - ${uri({ method, url })}`);
+  logger.debug(`with body: ${JSON.stringify({ headers, body })}`);
 };
 
-const logResponse = logger => ({ config, data, method, url, status }) => {
-  logger('received response -', status, uri(config), JSON.stringify(data));
+const logResponse = ({ config, data, method, url, status }) => {
+  logger.info(`received response - ${status} ${uri(config)}`);
+  logger.debug(`with body: ${JSON.stringify(data)}`);
 };
 
-const logInboundRequest = logClientRequest(console.info);
-
-const logOutboundRequest = ({ ajax }) => {
+const logOutgoingRequest = ({ ajax }) => {
   ajax.interceptors.request.use(
-    through(logRequest(console.info)));
+    through(logRequest));
 };
 
-const logOutboundRequestResult = ({ ajax }) => {
+const logOutgoingResponse = ({ ajax }) => {
   ajax.interceptors.response.use(
-    resolveThrough(logResponse(console.info)),
-    rejectThrough(silent(logResponse(console.warn))));
+    resolveThrough(logResponse),
+    rejectThrough(silent(logResponse)));
 };
 
 module.exports = (request, response, next) => {
-  logInboundRequest(request);
-  logOutboundRequest(request);
-  logOutboundRequestResult(request);
-  next();
+  logIncomingRequest(request);
+  logOutgoingRequest(request);
+  logOutgoingResponse(request);
+  next(data => {
+    logIncomingResponse(request, response, data);
+    response.send(data);
+  });
 };
