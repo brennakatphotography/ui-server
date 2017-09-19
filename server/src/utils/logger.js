@@ -1,9 +1,7 @@
 const { Logger } = require('heroku-logger');
 const LOG_LEVELS = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'];
 
-const logger = new Logger({
-  readable: false
-});
+const logger = new Logger({});
 
 const stringify = input => typeof input === 'string' ? input : JSON.stringify(input);
 

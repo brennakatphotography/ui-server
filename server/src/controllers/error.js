@@ -1,5 +1,7 @@
+const logger = require('../utils/logger');
+
 module.exports = (error, request, response, next) => {
-  console.error('an error ocurred:', error);
+  logger.error('An error was not caught:', error);
   response.status(error.status || 500)
     .json({
       message: error.message || 'An unknown error ocurred'
